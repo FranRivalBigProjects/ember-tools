@@ -1,192 +1,1055 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ember.js Tools – Data Flow, Run Loop, Rendering & Performance Debugging</title>
-
-<meta name="description" content="Free Ember.js tools to debug data flow, optimize rendering performance, analyze run loop behavior, and inspect Ember Data and routing systems.">
-
-<meta name="keywords" content="
-ember tools,
-ember data flow debugger,
-ember run loop explained,
-ember rendering performance,
-ember computed properties analyzer,
-ember route debugger,
-ember data optimization,
-ember js performance tools
-">
-
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<meta name="robots" content="index, follow">
 
-<link rel="canonical" href="https://yourdomain.com/ember-tools/">
+<title>Debugging SEO Issues in Ember.js Apps – FastBoot, Prerendering &amp; Meta Tag Guide (2025)</title>
+
+<meta name="description" content="How to debug SEO issues in Ember.js apps. Why Ember SPAs have poor SEO by default, how to fix with FastBoot (SSR) or Prember (prerendering), meta tag setup, canonical URLs, JSON-LD, and an Ember SEO HTML checker tool.">
+
+<meta name="keywords" content="debugging seo issues in ember.js apps, ember.js seo, ember seo issues, ember fastboot seo, ember ssr seo, ember spa seo, ember prerendering, ember meta tags, ember.js monitoring, ember seo debug">
+
+<link rel="canonical" href="https://franrivalbigprojects.github.io/ember-tools/">
+
+<meta property="og:title" content="Debugging SEO Issues in Ember.js Apps – FastBoot, Prerendering &amp; SEO Guide 2025">
+<meta property="og:description" content="Why Ember.js apps have SEO issues and how to fix them. FastBoot SSR, Prember prerendering, meta tag setup, and an HTML SEO checker.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg: #080408;
+  --surface: #100810;
+  --surface2: #180c18;
+  --border: #221020;
+  --border2: #301830;
+  --emb: #f87171;
+  --emb-dim: rgba(248,113,113,0.12);
+  --emb-dim2: rgba(248,113,113,0.05);
+  --emb-glow: rgba(248,113,113,0.18);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.10);
+  --green-dim2: rgba(34,197,94,0.05);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.08);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251,191,36,0.08);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.08);
+  --text: #e0c8d4;
+  --text-muted: #5a3858;
+  --text-dim: #201028;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --r: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: Arial, sans-serif;
-    background: #020617;
-    color: #e2e8f0;
-    margin: 0;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
 }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 40px 20px;
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
 }
 
-h1, h2, h3 {
-    color: #f87171;
+header {
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,4,8,0.97);
+  backdrop-filter: blur(12px);
 }
 
-a {
-    color: #4ade80;
-    text-decoration: none;
+.header-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
 }
 
-.tool-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+.logo-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--emb);
+  background: var(--emb-dim2);
+  border: 1px solid rgba(248,113,113,0.3);
+  border-radius: 3px;
+  padding: 3px 9px;
 }
 
-.card {
-    background: #0f172a;
-    padding: 20px;
-    border-radius: 10px;
-    transition: 0.2s;
+.logo-text { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+.logo-text strong { color: var(--emb); font-weight: 500; }
+
+.wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
 }
 
-.card:hover {
-    background: #1e293b;
+.hero {
+  padding: 48px 0 28px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 24px;
 }
 
-.faq {
-    margin-top: 50px;
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--emb);
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: clamp(22px, 3.2vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 em { font-style: normal; color: var(--emb); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 660px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.hero-sub strong { color: var(--text); }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.pill-e  { color: var(--emb); background: var(--emb-dim2); border-color: rgba(248,113,113,0.3); }
+.pill-dim { color: var(--text-muted); border-color: var(--border2); }
+
+/* TOOL */
+.tool-shell {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.tool-topbar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topbar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.btn-sm {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid;
+  background: transparent;
+  transition: opacity 0.15s;
+}
+.btn-sm:hover { opacity: 0.75; }
+.btn-emb  { color: var(--emb); border-color: rgba(248,113,113,0.3); background: var(--emb-dim2); }
+.btn-ghost { color: var(--text-muted); border-color: var(--border2); }
+
+/* MODE TABS */
+.mode-row {
+  display: flex;
+  gap: 6px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg);
+}
+
+.mode-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mode-btn:hover { border-color: var(--emb); color: var(--text); }
+.mode-btn.active { border-color: var(--emb); background: var(--emb-dim2); color: var(--emb); }
+
+.editor-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 320px;
+}
+
+.pane-left {
+  border-right: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+}
+
+.pane-head {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface2);
+}
+
+.seo-textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 270px;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.65;
+  background: var(--bg);
+  border: none;
+  color: var(--text);
+  resize: none;
+}
+
+.seo-textarea:focus { outline: none; }
+
+.pane-right { display: flex; flex-direction: column; overflow: hidden; }
+
+#resultsPane {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  min-height: 270px;
+}
+
+.idle-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 250px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+  gap: 8px;
+}
+
+.action-bar {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border2);
+  background: var(--surface2);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-check {
+  padding: 10px 26px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--emb);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 14px var(--emb-glow);
+  transition: opacity 0.15s;
+}
+.btn-check:hover { opacity: 0.87; }
+
+/* RESULTS */
+.score-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.score-grade { font-family: var(--mono); font-size: 26px; font-weight: 600; width: 36px; text-align: center; flex-shrink: 0; }
+.score-meta strong { display: block; font-size: 13px; color: #fff; margin-bottom: 2px; }
+.score-meta span   { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+
+.stat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.sch { background: var(--bg); border: 1px solid var(--border2); border-radius: 4px; padding: 6px 10px; text-align: center; min-width: 54px; }
+.sch-num { font-family: var(--mono); font-size: 15px; font-weight: 600; line-height: 1; display: block; margin-bottom: 2px; }
+.sch-lbl { font-family: var(--mono); font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.07em; }
+
+.finding {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-left: 3px solid;
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.f-error   { border-left-color: var(--emb); }
+.f-warning { border-left-color: var(--yellow); }
+.f-info    { border-left-color: var(--blue); }
+.f-pass    { border-left-color: var(--green); }
+
+.f-head { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+.f-badge { font-size: 9px; padding: 1px 6px; border-radius: 2px; border: 1px solid; text-transform: uppercase; letter-spacing: 0.04em; }
+.fb-error   { color: var(--emb);    background: var(--emb-dim2);  border-color: rgba(248,113,113,0.2); }
+.fb-warning { color: var(--yellow); background: var(--yellow-dim);border-color: rgba(251,191,36,0.2); }
+.fb-info    { color: var(--blue);   background: var(--blue-dim);  border-color: rgba(96,165,250,0.2); }
+.fb-pass    { color: var(--green);  background: var(--green-dim2);border-color: rgba(34,197,94,0.2); }
+
+.f-title { font-weight: 600; color: var(--text); font-size: 11px; }
+.f-body  { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
+
+/* SECTION */
+hr.divider { border: none; border-top: 1px solid var(--border2); margin: 50px 0; }
+.content-section { margin-bottom: 50px; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--emb);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.sec-rule { flex: 1; height: 1px; background: var(--border2); }
+
+p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 10px; max-width: 820px; }
+p strong { color: var(--text); }
+
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface2);
+  color: var(--emb);
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+}
+
+.code-block {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--emb);
+  border-radius: 5px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 12px 0;
+  color: var(--text-muted);
+}
+
+.ck { color: var(--emb); }
+.cg { color: var(--green); }
+.cm { color: var(--text-dim); }
+.cs { color: var(--yellow); }
+
+.dense-block {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-top: 14px;
+}
+
+.dense-block p { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border2); max-width: none; }
+.dense-block p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.faq-list { margin-top: 14px; border: 1px solid var(--border2); border-radius: var(--r); overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--border2); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--sans);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.faq-q:hover { background: var(--emb-dim2); }
+.faq-arrow { font-family: var(--mono); font-size: 11px; color: var(--text-dim); transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+.faq-a {
+  display: none;
+  padding: 0 18px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  border-top: 1px solid var(--border2);
+  background: var(--bg);
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-a code { color: var(--emb); background: var(--emb-dim2); }
+
+.subtools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stl {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s;
+}
+
+.stl:hover { border-color: rgba(248,113,113,0.3); }
+.stl-eye  { font-family: var(--mono); font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+.stl-name { font-family: var(--mono); font-size: 12px; color: var(--emb); font-weight: 500; }
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 50px; }
+.tag {
+  font-family: var(--mono); font-size: 10px; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 100px; padding: 4px 12px; cursor: default;
+}
+.tag:hover { color: var(--emb); border-color: rgba(248,113,113,0.3); }
+
+footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+.footer-inner {
+  max-width: 1060px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 0; }
+
+@media (max-width: 640px) {
+  .editor-split { grid-template-columns: 1fr; }
+  .pane-left    { border-right: none; border-bottom: 1px solid var(--border2); }
 }
 </style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Debugging SEO Issues in Ember.js Apps 2025","description":"Why Ember.js SPAs have SEO problems and how to fix them. FastBoot SSR setup, Prember prerendering, dynamic meta tags with ember-cli-head, canonical URLs, JSON-LD, and an Ember HTML SEO checker.","keywords":"debugging seo issues in ember.js apps, ember.js seo, ember fastboot seo, ember ssr, ember prerendering"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Ember.js have SEO issues?","acceptedAnswer":{"@type":"Answer","text":"Ember.js is a client-side Single Page Application (SPA) framework. By default, the server sends a nearly empty HTML file, and JavaScript renders the content in the browser. Search engine crawlers (except Googlebot in limited cases) see the empty HTML shell — no title, no description, no content. This causes SEO issues: no indexable content, missing meta tags, dynamic content not seen by crawlers. Solutions: Ember FastBoot (server-side rendering) runs Ember on Node.js and sends full HTML. Prember generates static HTML snapshots at build time. Both solve the SEO issue."}},{"@type":"Question","name":"What is Ember FastBoot and how does it fix SEO?","acceptedAnswer":{"@type":"Answer","text":"Ember FastBoot is a server-side rendering (SSR) addon for Ember.js. It runs your Ember app in a Node.js environment on the server, generates the full HTML including dynamic content, and sends it to the browser and search crawlers. Install: ember install ember-cli-fastboot. FastBoot allows crawlers to see full page content, dynamic titles, meta descriptions, and structured data. Combine with ember-cli-head for per-route meta tags."}}]}
+</script>
+
 </head>
 
 <body>
+<header>
+  <div class="header-inner">
+    <span class="logo-pill">Ember</span>
+    <span class="logo-text"><strong>seo</strong>-debug &middot; fastboot &middot; monitoring</span>
+  </div>
+</header>
 
-<div class="container">
+<div class="wrapper">
 
-<h1>Ember.js Tools</h1>
+  <section class="hero">
+    <p class="hero-eyebrow">// Ember.js SEO &amp; Performance 2025</p>
+    <h1><em>Debugging SEO Issues</em><br>in Ember.js Apps — Complete Fix Guide</h1>
+    <p class="hero-sub">
+      Why Ember SPAs fail SEO by default, how to fix with <strong>FastBoot (SSR) or Prember (prerendering)</strong>, dynamic meta tags, canonical URLs, and a free Ember HTML SEO checker.
+    </p>
+    <div class="pill-row">
+      <span class="pill pill-e">FastBoot SSR</span>
+      <span class="pill pill-e">Prember</span>
+      <span class="pill pill-dim">ember-cli-head</span>
+      <span class="pill pill-dim">Dynamic Meta Tags</span>
+      <span class="pill pill-dim">SEO Checker</span>
+    </div>
+  </section>
 
-<p>
-Debug and optimize your Ember.js applications with tools focused on data flow,
-rendering performance, run loop behavior, and Ember Data efficiency.
-Designed for developers working on complex front-end architectures.
-</p>
+  <!-- SEO CHECKER TOOL -->
 
-<h2>🔥 Available Ember Tools</h2>
+  <div class="tool-shell">
+    <div class="tool-topbar">
+      <span class="topbar-label">// Ember HTML SEO Checker</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-sm btn-emb" id="sampleSPABtn">Load SPA Sample (broken)</button>
+        <button class="btn-sm btn-emb" id="sampleFBBtn">Load FastBoot Sample</button>
+        <button class="btn-sm btn-ghost" id="clearBtn">Clear</button>
+      </div>
+    </div>
 
-<div class="tool-grid">
 
-<a href="./computed/computed-properties-analyzer.html" class="card">
-<h3>Computed Properties Analyzer</h3>
-<p>Inspect dependencies and optimize computed property performance.</p>
-</a>
+<div class="mode-row">
+  <button class="mode-btn active" id="modeHtml" onclick="setMode('html',this)">Check HTML Response</button>
+  <button class="mode-btn" id="modeHeaders" onclick="setMode('headers',this)">Check HTTP Headers</button>
+</div>
 
-<a href="./data-flow/data-flow-visualizer.html" class="card">
-<h3>Data Flow Visualizer</h3>
-<p>Understand how data moves through your Ember application.</p>
-</a>
+<div class="editor-split">
+  <div class="pane-left">
+    <div class="pane-head" id="paneHint">// Paste Ember HTML response (view-source or curl)</div>
+    <textarea class="seo-textarea" id="seoInput" spellcheck="false"></textarea>
+  </div>
+  <div class="pane-right">
+    <div class="pane-head">// SEO findings</div>
+    <div id="resultsPane">
+      <div class="idle-msg">
+        <span style="font-size:28px;opacity:0.1;">&#9670;</span>
+        <span>Paste HTML or headers and click<br>Check Ember SEO</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<a href="./ember-data/ember-data-debugger.html" class="card">
-<h3>Ember Data Debugger</h3>
-<p>Analyze models, relationships, and data loading issues.</p>
-</a>
+<div class="action-bar">
+  <button class="btn-check" id="checkBtn">Check Ember SEO</button>
+  <button class="btn-sm btn-ghost" id="clearBtn2">Reset</button>
+  <span id="statusMsg" style="font-family:var(--mono);font-size:11px;color:var(--text-dim);"></span>
+</div>
 
-<a href="./hierarchy/component-hierarchy-visualizer.html" class="card">
-<h3>Component Hierarchy Visualizer</h3>
-<p>Explore component structure and nesting.</p>
-</a>
 
-<a href="./performance/performance-analyzer.html" class="card">
-<h3>Performance Analyzer</h3>
-<p>Detect rendering bottlenecks and inefficiencies.</p>
-</a>
+  </div>
 
-<a href="./rendering/rendering-debugger.html" class="card">
-<h3>Rendering Debugger</h3>
-<p>Analyze render cycles and DOM updates.</p>
-</a>
+  <hr class="divider">
 
-<a href="./route/route-debugger.html" class="card">
-<h3>Route Debugger</h3>
-<p>Inspect routing transitions and data loading.</p>
-</a>
+  <!-- FIX GUIDE -->
 
-<a href="./run-loop/run-loop-visualizer.html" class="card">
-<h3>Run Loop Visualizer</h3>
-<p>Understand Ember’s run loop phases and timing.</p>
-</a>
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">The 3 solutions ranked</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="dense-block">
+      <p><strong>Solution 1 — Ember FastBoot (SSR) — Recommended</strong><br>
+      FastBoot runs your Ember app in Node.js on every request and serves fully-rendered HTML. Crawlers see complete content. Install: <code>ember install ember-cli-fastboot</code>. For meta tags per route install <code>ember-cli-head</code> and set title/description in each route's <code>headTags</code>. FastBoot requires a Node.js server — deploy on Heroku, Fly.io, Railway, or any Node host. <strong>Verdict:</strong> Best SEO, requires server infrastructure.</p>
+      <p><strong>Solution 2 — Prember (Static Prerendering) — Simpler</strong><br>
+      Prember prerenders your Ember app to static HTML files at build time. No server required — deploy to GitHub Pages, S3, Netlify. Install: <code>ember install prember</code>. Configure the URLs to prerender in <code>ember-cli-build.js</code>. <strong>Limitation:</strong> Content is static — dynamic routes (user profiles, blog posts from API) get the same prerendered shell. Best for sites where the important content is known at build time. <strong>Verdict:</strong> Good SEO for static content, simpler deployment.</p>
+      <p><strong>Solution 3 — ember-prerender / Puppeteer snapshot</strong><br>
+      Use a headless browser (Puppeteer/Playwright) to prerender pages and serve snapshots to crawlers. Detect bots via user-agent in a reverse proxy (Nginx/Cloudflare Worker) and serve the prerendered version. This is the most flexible but complex approach. Tools: prerender.io, rendertron, or custom Puppeteer script. <strong>Verdict:</strong> Works for any setup, most complex to maintain.</p>
+    </div>
+  </section>
+
+  <!-- CODE EXAMPLES -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Implementation code</span>
+      <span class="sec-rule"></span>
+    </div>
+
+
+<div class="code-block"><span class="cm"># ─── ember-cli-head setup (dynamic meta tags) ───</span>
+
+
+<span class="cm"># 1. Install</span>
+<span class="ck">ember</span> install ember-cli-head
+
+<span class="cm"># 2. app/templates/application.hbs — add head-layout component</span>
+<span class="cs">{{head-layout}}</span>
+<span class="cs">{{outlet}}</span>
+
+<span class="cm"># 3. In each route (e.g., app/routes/post.js)</span>
+<span class="ck">import</span> Route from <span class="cs">’@ember/routing/route’</span>;
+<span class="ck">import</span> { inject as service } from <span class="cs">’@ember/service’</span>;
+
+<span class="ck">export default</span> class PostRoute extends Route {
+@service headData;
+
+<span class="ck">async</span> model({ post_id }) {
+<span class="ck">const</span> post = <span class="ck">await</span> this.store.findRecord(<span class="cs">‘post’</span>, post_id);
+<span class="cg">this.headData.title = post.title;</span>
+<span class="cg">this.headData.description = post.excerpt;</span>
+<span class="cg">this.headData.canonical = `https://yoursite.com/posts/${post_id}`;</span>
+return post;
+}
+}</div>
+
+
+<div class="code-block"><span class="cm"># ─── Prember configuration (ember-cli-build.js) ───</span>
+
+
+<span class="ck">const</span> EmberApp = require(<span class="cs">‘ember-cli/lib/broccoli/ember-app’</span>);
+
+module.exports = function(defaults) {
+<span class="ck">const</span> app = new EmberApp(defaults, {
+prember: {
+urls: [
+<span class="cs">’/’</span>,
+<span class="cs">’/about’</span>,
+<span class="cs">’/blog’</span>,
+<span class="cs">’/blog/post-1’</span>,
+<span class="cm">// Add all routes you want prerendered</span>
+]
+}
+});
+return app.toTree();
+};</div>
+
+
+<div class="code-block"><span class="cm"># ─── Ember FastBoot deploy (Fly.io Dockerfile) ───</span>
+
+
+<span class="cm">FROM</span> node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+<span class="cg">CMD [“npx”, “fastboot”, “–serve-assets”, “–port”, “3000”]</span>
+
+<span class="cm"># ─── Nginx: serve bot traffic to prerender service ───</span>
+location / {
+if ($http_user_agent ~* <span class="cs">“Googlebot|bingbot|Slurp|DuckDuckBot|facebookexternalhit”</span>) {
+proxy_pass http://prerender_service;
+}
+try_files $uri $uri/ /index.html;
+}</div>
+
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">FAQ — Ember.js SEO debugging</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why does Ember.js have SEO issues by default?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Ember is a client-side SPA — the server sends a nearly empty HTML shell, and JavaScript renders content in the browser. Crawlers receive <code>&lt;body&gt;&lt;div id="ember-app"&gt;&lt;/div&gt;&lt;/body&gt;</code> with no readable content, no title, no description. Googlebot can execute JavaScript in limited cases, but rendering is unreliable and delayed. Fix with FastBoot (SSR), Prember (prerendering), or a prerender proxy.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I add dynamic meta tags in Ember.js?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Install <code>ember-cli-head</code>. Add <code>{{head-layout}}</code> to your application template. In each route's <code>model()</code> hook, inject the <code>headData</code> service and set <code>this.headData.title</code>, <code>this.headData.description</code>, and other meta properties. Create <code>app/templates/head.hbs</code> with the meta tag structure bound to headData properties. With FastBoot, these tags are rendered server-side and visible to crawlers.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does Googlebot crawl Ember.js apps?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Sometimes, but unreliably. Googlebot can execute JavaScript and render SPAs, but: (1) Rendering is delayed — content may not be indexed for weeks. (2) JavaScript errors silently prevent rendering. (3) Rendering budget limits mean not every page gets rendered. (4) Other crawlers (Bing, social media bots) typically don't execute JavaScript at all. Never rely on Googlebot's JS execution for critical SEO — use FastBoot or prerendering for reliable indexing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I debug SEO issues in Ember.js?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Step 1: <code>curl -A "Googlebot" https://yoursite.com/page</code> — check what crawlers actually receive. Step 2: Google Search Console → URL Inspection → "Test Live URL" → "View Tested Page" shows what Googlebot renders. Step 3: Check page source (Ctrl+U) — if the body is empty, you have an SPA SEO problem. Step 4: Use this tool — paste your HTML response to check for missing title, meta description, canonical, OG tags. Step 5: If using FastBoot, verify the Node server is running and not returning errors.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Ember tools</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="subtools-grid">
+      <a href="performance/performance-analyzer.html" class="stl"><p class="stl-eye">perf //</p><span class="stl-name">Performance Analyzer</span></a>
+      <a href="run-loop/run-loop-visualizer.html" class="stl"><p class="stl-eye">run loop //</p><span class="stl-name">Run Loop Visualizer</span></a>
+      <a href="ember-data/ember-data-debugger.html" class="stl"><p class="stl-eye">data //</p><span class="stl-name">Ember Data Debugger</span></a>
+      <a href="route/route-debugger.html" class="stl"><p class="stl-eye">routing //</p><span class="stl-name">Route Debugger</span></a>
+      <a href="rendering/rendering-debugger.html" class="stl"><p class="stl-eye">render //</p><span class="stl-name">Rendering Debugger</span></a>
+    </div>
+  </section>
+
+  <div class="tag-cloud">
+    <span class="tag">debugging seo issues in ember.js apps</span>
+    <span class="tag">ember.js seo</span>
+    <span class="tag">ember fastboot seo</span>
+    <span class="tag">ember ssr</span>
+    <span class="tag">ember prember</span>
+    <span class="tag">ember.js monitoring</span>
+    <span class="tag">ember meta tags</span>
+    <span class="tag">ember spa seo</span>
+    <span class="tag">ember seo debug</span>
+    <span class="tag">ember prerendering</span>
+  </div>
 
 </div>
 
-<!-- LONG TAIL -->
+<footer>
+  <div class="footer-inner">
+    <p>ember-seo-debug &middot; fastboot &middot; prember &middot; meta tags &middot; 2025</p>
+    <p>github pages &middot; ember.js monitoring &middot; ssr &middot; prerendering</p>
+  </div>
+</footer>
 
-<h2>Ember Optimization Use Cases</h2>
+<script>
+var currentMode = 'html';
 
-<ul>
-<li>How Ember run loop works internally</li>
-<li>How to debug Ember data flow issues</li>
-<li>How to improve Ember rendering performance</li>
-<li>Why Ember app is slow</li>
-<li>How computed properties affect performance</li>
-<li>How Ember routing lifecycle works</li>
-<li>How to optimize Ember Data relationships</li>
-</ul>
+var HTML_RULES = [
+  {
+    level: 'error',
+    title: 'Empty Ember app shell — no SSR detected',
+    check: function(src) {
+      var hasEmberDiv = /id="ember\d+"|class="ember-view"|<div id="ember-app"/i.test(src);
+      var hasNoContent = src.replace(/<[^>]+>/g, '').trim().length < 80;
+      if (hasEmberDiv && hasNoContent) {
+        return 'Page appears to be an unrendered Ember SPA shell. Crawlers will see no content. Install ember-cli-fastboot for SSR or prember for static prerendering.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'error',
+    title: 'Missing title tag',
+    check: function(src) {
+      if (!/<title[^>]*>[^<]{3,}/i.test(src)) {
+        return 'No title tag with content found. Title is the most important on-page SEO element. With FastBoot + ember-cli-head: set this.headData.title in each route model hook.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'error',
+    title: 'Missing meta description',
+    check: function(src) {
+      if (!/meta[^>]+name=["']description["'][^>]+content=["'][^"']{10,}/i.test(src) &&
+          !/meta[^>]+content=["'][^"']{10,}["'][^>]+name=["']description/i.test(src)) {
+        return 'No meta description found. Google uses this as the SERP snippet. With ember-cli-head: bind <meta name="description" content={{headData.description}}> in app/templates/head.hbs.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'error',
+    title: 'Missing canonical URL',
+    check: function(src) {
+      if (!/rel=["']canonical["']/i.test(src)) {
+        return 'No canonical link tag. Required to prevent duplicate content issues with Ember hash routing or query params. Add <link rel="canonical" href={{headData.canonical}}> in head.hbs.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'warning',
+    title: 'Missing Open Graph tags',
+    check: function(src) {
+      if (!/property=["']og:title["']/i.test(src)) {
+        return 'No og:title Open Graph tag. OG tags control how the page appears when shared on social media. Add og:title, og:description, og:image, og:url in head.hbs.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'warning',
+    title: 'Missing or default robots meta',
+    check: function(src) {
+      if (/content=["']noindex/i.test(src)) {
+        return 'Found noindex directive. This page will not be indexed by search engines. If this is Ember development/staging, ensure production removes noindex.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'warning',
+    title: 'Missing structured data (JSON-LD)',
+    check: function(src) {
+      if (!/application\/ld\+json/i.test(src)) {
+        return 'No JSON-LD structured data found. For articles, products, or organizations, add a <script type="application/ld+json"> block in head.hbs for rich search results.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'info',
+    title: 'Ember FastBoot detected',
+    check: function(src) {
+      if (/fastboot|ember-fastboot|x-fastboot/i.test(src)) {
+        return 'FastBoot rendering signature detected. Server-side rendering is active — crawlers should receive full HTML. Verify content is populated and meta tags are set.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'info',
+    title: 'ember-cli-head detected',
+    check: function(src) {
+      if (/ember-cli-head|headData/i.test(src)) {
+        return 'ember-cli-head is integrated. Ensure headData.title and headData.description are set in every route model hook, including child routes.';
+      }
+      return null;
+    }
+  }
+];
 
-<!-- FAQ -->
+var HEADER_RULES = [
+  {
+    level: 'error',
+    title: 'No SSR indicator in headers',
+    check: function(src) {
+      if (!/x-fastboot|server: fastboot|x-powered-by.*ember/i.test(src)) {
+        if (/content-type.*html/i.test(src)) {
+          return 'No FastBoot SSR headers detected. If serving a static SPA, crawlers receive an empty HTML shell. Consider FastBoot or Prember for SEO.';
+        }
+      }
+      return null;
+    }
+  },
+  {
+    level: 'warning',
+    title: 'No cache control for crawler efficiency',
+    check: function(src) {
+      if (!/cache-control/i.test(src)) {
+        return 'No Cache-Control header. For FastBoot, set Cache-Control: public, max-age=3600 to allow CDN caching of SSR responses, reducing server load.';
+      }
+      return null;
+    }
+  },
+  {
+    level: 'info',
+    title: 'Gzip / Brotli compression',
+    check: function(src) {
+      if (!/content-encoding:\s*(gzip|br)/i.test(src)) {
+        return 'No compression detected. Enable gzip or Brotli in Nginx/Node to reduce HTML transfer size — improves Core Web Vitals and crawler efficiency.';
+      }
+      return null;
+    }
+  }
+];
 
-<div class="faq">
+function el(tag, cls) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  return e;
+}
 
-<h2>Frequently Asked Questions</h2>
+function makeFinding(level, title, body) {
+  var lm = { error: 'f-error', warning: 'f-warning', info: 'f-info', pass: 'f-pass' };
+  var bm = { error: 'fb-error', warning: 'fb-warning', info: 'fb-info', pass: 'fb-pass' };
+  var ll = { error: 'ERROR', warning: 'WARNING', info: 'INFO', pass: 'PASS' };
+  var card = el('div', 'finding ' + (lm[level] || 'f-info'));
+  var head = el('div', 'f-head');
+  head.appendChild(Object.assign(el('span', 'f-badge ' + (bm[level] || 'fb-info')), { textContent: ll[level] || 'INFO' }));
+  head.appendChild(Object.assign(el('span', 'f-title'), { textContent: title }));
+  card.appendChild(head);
+  if (body) card.appendChild(Object.assign(el('div', 'f-body'), { textContent: body }));
+  return card;
+}
 
-<h3>What is the Ember run loop?</h3>
-<p>
-The run loop is a scheduling system that batches and optimizes DOM updates and state changes.
-</p>
+function runCheck() {
+  var src    = document.getElementById('seoInput').value.trim();
+  var status = document.getElementById('statusMsg');
+  var rules  = currentMode === 'html' ? HTML_RULES : HEADER_RULES;
 
-<h3>Why is my Ember app slow?</h3>
-<p>
-Common issues include excessive re-renders, inefficient computed properties,
-and large data relationships.
-</p>
+  if (!src) { status.textContent = 'Paste content first.'; return; }
 
-<h3>How does Ember Data work?</h3>
-<p>
-Ember Data manages models, relationships, and API communication with a structured data layer.
-</p>
+  var findings = [];
+  rules.forEach(function(rule) {
+    var r = rule.check(src);
+    if (r) findings.push({ level: rule.level, title: rule.title, body: r });
+  });
 
-<h3>How can I optimize rendering?</h3>
-<p>
-Reduce unnecessary bindings, simplify templates, and avoid deep component nesting.
-</p>
+  var errors   = findings.filter(function(f) { return f.level === 'error'; }).length;
+  var warnings = findings.filter(function(f) { return f.level === 'warning'; }).length;
 
-<h3>What are computed properties?</h3>
-<p>
-Computed properties automatically update when their dependencies change,
-but can impact performance if overused.
-</p>
+  var grade, gradeColor;
+  if (errors >= 3) { grade = 'F'; gradeColor = 'var(--emb)'; }
+  else if (errors > 0) { grade = 'D'; gradeColor = 'var(--orange)'; }
+  else if (warnings > 0) { grade = 'C'; gradeColor = 'var(--yellow)'; }
+  else { grade = 'A'; gradeColor = 'var(--green)'; }
 
-</div>
+  if (findings.length === 0) {
+    findings.push({ level: 'pass', title: 'No SEO issues detected', body: 'Page passes Ember SEO checks. Verify in Google Search Console URL Inspection for live crawler view.' });
+    grade = 'A'; gradeColor = 'var(--green)';
+  }
 
-<!-- INTERNAL BOOST -->
+  var pane = document.getElementById('resultsPane');
+  pane.innerHTML = '';
 
-<h2>Related Topics</h2>
+  var banner = el('div', 'score-banner');
+  banner.style.borderColor = gradeColor;
+  var gradeEl = Object.assign(el('div', 'score-grade'), { textContent: grade });
+  gradeEl.style.color = gradeColor;
+  var meta = el('div', 'score-meta');
+  var label = errors >= 3 ? 'Critical SEO issues' : errors > 0 ? 'SEO problems found' : warnings > 0 ? 'Minor SEO gaps' : 'SEO looks good';
+  var ms = Object.assign(el('strong'), { textContent: 'Grade ' + grade + ': ' + label });
+  ms.style.color = gradeColor;
+  meta.appendChild(ms);
+  meta.appendChild(Object.assign(el('span'), { textContent: errors + ' error(s) · ' + warnings + ' warning(s)' }));
+  banner.appendChild(gradeEl); banner.appendChild(meta);
+  pane.appendChild(banner);
 
-<p>
-These tools connect with frontend performance optimization, reactive data systems,
-and modern JavaScript frameworks.
-</p>
+  var chips = el('div', 'stat-chips');
+  function makeChip(val, lbl, color) {
+    var c = el('div', 'sch');
+    var n = Object.assign(el('span', 'sch-num'), { textContent: String(val) });
+    n.style.color = color;
+    c.appendChild(n); c.appendChild(Object.assign(el('span', 'sch-lbl'), { textContent: lbl }));
+    return c;
+  }
+  chips.appendChild(makeChip(errors,   'Errors',   'var(--emb)'));
+  chips.appendChild(makeChip(warnings, 'Warnings', 'var(--yellow)'));
+  pane.appendChild(chips);
 
-</div>
+  findings.forEach(function(f) { pane.appendChild(makeFinding(f.level, f.title, f.body)); });
+
+  status.textContent = errors + ' error(s), ' + warnings + ' warning(s).';
+  status.style.color = errors > 0 ? 'var(--emb)' : warnings > 0 ? 'var(--yellow)' : 'var(--green)';
+}
+
+var SPA_SAMPLE = [
+  '<!DOCTYPE html>',
+  '<html>',
+  '<head>',
+  '  <meta charset="UTF-8">',
+  '  <title>My App</title>',
+  '  <link rel="stylesheet" href="/assets/app.css">',
+  '</head>',
+  '<body>',
+  '  <div id="ember-app" class="ember-view"></div>',
+  '  <script src="/assets/vendor.js"></script>',
+
+’  <script src="/assets/app.js"></script>’,
+‘</body>’,
+‘</html>’
+].join(’\n’);
+
+var FB_SAMPLE = [
+‘<!DOCTYPE html>’,
+‘<html>’,
+‘<head>’,
+’  <meta charset="UTF-8">’,
+’  <title>Blog Post Title - My Ember App</title>’,
+’  <meta name="description" content="This is a detailed meta description for the blog post about Ember.js and FastBoot SSR.">’,
+’  <link rel="canonical" href="https://myapp.com/blog/post-1">’,
+’  <meta property="og:title" content="Blog Post Title">’,
+’  <meta property="og:description" content="Blog post description for social sharing.">’,
+’  <script type="application/ld+json">{”@context”:“https://schema.org”,”@type”:“Article”,“headline”:“Blog Post Title”}</script>’,
+‘</head>’,
+‘<body class="ember-application">’,
+’  <div id="ember-app">’,
+’    <main>’,
+’      <h1>Blog Post Title</h1>’,
+’      <p>This content was server-rendered by Ember FastBoot.</p>’,
+’    </main>’,
+’  </div>’,
+‘</body>’,
+‘</html>’
+].join(’\n’);
+
+function setMode(mode, btn) {
+currentMode = mode;
+document.querySelectorAll(’.mode-btn’).forEach(function(b) { b.classList.remove(‘active’); });
+btn.classList.add(‘active’);
+var hint = document.getElementById(‘paneHint’);
+if (mode === ‘html’) {
+hint.textContent = ‘// Paste Ember HTML response (view-source or curl)’;
+} else {
+hint.textContent = ‘// Paste HTTP response headers’;
+}
+}
+
+function clearAll() {
+document.getElementById(‘seoInput’).value = ‘’;
+document.getElementById(‘statusMsg’).textContent = ‘’;
+document.getElementById(‘resultsPane’).innerHTML = ‘’;
+var idle = el(‘div’, ‘idle-msg’);
+var icon = Object.assign(el(‘span’), { textContent: ‘\u25c7’ });
+icon.style.cssText = ‘font-size:28px;opacity:0.1;’;
+var hint = Object.assign(el(‘span’), { textContent: ‘Paste HTML or headers and click\nCheck Ember SEO’ });
+idle.appendChild(icon); idle.appendChild(hint);
+document.getElementById(‘resultsPane’).appendChild(idle);
+}
+
+function toggleFaq(btn) {
+btn.parentElement.classList.toggle(‘open’);
+}
+
+document.addEventListener(‘DOMContentLoaded’, function() {
+document.getElementById(‘seoInput’).placeholder = ‘Paste your Ember app HTML source here…\n(use curl https://yoursite.com or view page source)’;
+document.getElementById(‘checkBtn’).addEventListener(‘click’, runCheck);
+document.getElementById(‘sampleSPABtn’).addEventListener(‘click’, function() {
+document.getElementById(‘seoInput’).value = SPA_SAMPLE;
+runCheck();
+});
+document.getElementById(‘sampleFBBtn’).addEventListener(‘click’, function() {
+document.getElementById(‘seoInput’).value = FB_SAMPLE;
+runCheck();
+});
+document.getElementById(‘clearBtn’).addEventListener(‘click’, clearAll);
+document.getElementById(‘clearBtn2’).addEventListener(‘click’, clearAll);
+});
+</script>
 
 </body>
 </html>
