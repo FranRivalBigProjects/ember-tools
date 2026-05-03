@@ -7,7 +7,7 @@
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
 <meta name="robots" content="index, follow">
 
-<title>Debugging SEO Issues in Ember.js Apps – FastBoot, Prerendering &amp; Meta Tag Guide (2025)</title>
+<title>Debugging SEO Issues in Ember.js Apps - FastBoot, Prerendering &amp; Meta Tag Guide (2025)</title>
 
 <meta name="description" content="How to debug SEO issues in Ember.js apps. Why Ember SPAs have poor SEO by default, how to fix with FastBoot (SSR) or Prember (prerendering), meta tag setup, canonical URLs, JSON-LD, and an Ember SEO HTML checker tool.">
 
@@ -15,7 +15,7 @@
 
 <link rel="canonical" href="https://franrivalbigprojects.github.io/ember-tools/">
 
-<meta property="og:title" content="Debugging SEO Issues in Ember.js Apps – FastBoot, Prerendering &amp; SEO Guide 2025">
+<meta property="og:title" content="Debugging SEO Issues in Ember.js Apps - FastBoot, Prerendering &amp; SEO Guide 2025">
 <meta property="og:description" content="Why Ember.js apps have SEO issues and how to fix them. FastBoot SSR, Prember prerendering, meta tag setup, and an HTML SEO checker.">
 <meta property="og:type" content="website">
 
@@ -162,7 +162,7 @@ h1 em { font-style: normal; color: var(--emb); }
   border-radius: 3px;
   border: 1px solid;
 }
-.pill-e  { color: var(--emb); background: var(--emb-dim2); border-color: rgba(248,113,113,0.3); }
+.pill-e   { color: var(--emb); background: var(--emb-dim2); border-color: rgba(248,113,113,0.3); }
 .pill-dim { color: var(--text-muted); border-color: var(--border2); }
 
 /* TOOL */
@@ -204,7 +204,7 @@ h1 em { font-style: normal; color: var(--emb); }
   transition: opacity 0.15s;
 }
 .btn-sm:hover { opacity: 0.75; }
-.btn-emb  { color: var(--emb); border-color: rgba(248,113,113,0.3); background: var(--emb-dim2); }
+.btn-emb   { color: var(--emb); border-color: rgba(248,113,113,0.3); background: var(--emb-dim2); }
 .btn-ghost { color: var(--text-muted); border-color: var(--border2); }
 
 /* MODE TABS */
@@ -358,10 +358,10 @@ h1 em { font-style: normal; color: var(--emb); }
 
 .f-head { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
 .f-badge { font-size: 9px; padding: 1px 6px; border-radius: 2px; border: 1px solid; text-transform: uppercase; letter-spacing: 0.04em; }
-.fb-error   { color: var(--emb);    background: var(--emb-dim2);  border-color: rgba(248,113,113,0.2); }
-.fb-warning { color: var(--yellow); background: var(--yellow-dim);border-color: rgba(251,191,36,0.2); }
-.fb-info    { color: var(--blue);   background: var(--blue-dim);  border-color: rgba(96,165,250,0.2); }
-.fb-pass    { color: var(--green);  background: var(--green-dim2);border-color: rgba(34,197,94,0.2); }
+.fb-error   { color: var(--emb);    background: var(--emb-dim2);   border-color: rgba(248,113,113,0.2); }
+.fb-warning { color: var(--yellow); background: var(--yellow-dim); border-color: rgba(251,191,36,0.2); }
+.fb-info    { color: var(--blue);   background: var(--blue-dim);   border-color: rgba(96,165,250,0.2); }
+.fb-pass    { color: var(--green);  background: var(--green-dim2); border-color: rgba(34,197,94,0.2); }
 
 .f-title { font-weight: 600; color: var(--text); font-size: 11px; }
 .f-body  { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
@@ -520,7 +520,7 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 </script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Ember.js have SEO issues?","acceptedAnswer":{"@type":"Answer","text":"Ember.js is a client-side Single Page Application (SPA) framework. By default, the server sends a nearly empty HTML file, and JavaScript renders the content in the browser. Search engine crawlers (except Googlebot in limited cases) see the empty HTML shell — no title, no description, no content. This causes SEO issues: no indexable content, missing meta tags, dynamic content not seen by crawlers. Solutions: Ember FastBoot (server-side rendering) runs Ember on Node.js and sends full HTML. Prember generates static HTML snapshots at build time. Both solve the SEO issue."}},{"@type":"Question","name":"What is Ember FastBoot and how does it fix SEO?","acceptedAnswer":{"@type":"Answer","text":"Ember FastBoot is a server-side rendering (SSR) addon for Ember.js. It runs your Ember app in a Node.js environment on the server, generates the full HTML including dynamic content, and sends it to the browser and search crawlers. Install: ember install ember-cli-fastboot. FastBoot allows crawlers to see full page content, dynamic titles, meta descriptions, and structured data. Combine with ember-cli-head for per-route meta tags."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Ember.js have SEO issues?","acceptedAnswer":{"@type":"Answer","text":"Ember.js is a client-side Single Page Application (SPA) framework. By default, the server sends a nearly empty HTML file, and JavaScript renders the content in the browser. Search engine crawlers (except Googlebot in limited cases) see the empty HTML shell - no title, no description, no content. This causes SEO issues: no indexable content, missing meta tags, dynamic content not seen by crawlers. Solutions: Ember FastBoot (server-side rendering) runs Ember on Node.js and sends full HTML. Prember generates static HTML snapshots at build time. Both solve the SEO issue."}},{"@type":"Question","name":"What is Ember FastBoot and how does it fix SEO?","acceptedAnswer":{"@type":"Answer","text":"Ember FastBoot is a server-side rendering (SSR) addon for Ember.js. It runs your Ember app in a Node.js environment on the server, generates the full HTML including dynamic content, and sends it to the browser and search crawlers. Install: ember install ember-cli-fastboot. FastBoot allows crawlers to see full page content, dynamic titles, meta descriptions, and structured data. Combine with ember-cli-head for per-route meta tags."}}]}
 </script>
 
 </head>
@@ -537,7 +537,7 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <section class="hero">
     <p class="hero-eyebrow">// Ember.js SEO &amp; Performance 2025</p>
-    <h1><em>Debugging SEO Issues</em><br>in Ember.js Apps — Complete Fix Guide</h1>
+    <h1><em>Debugging SEO Issues</em><br>in Ember.js Apps &mdash; Complete Fix Guide</h1>
     <p class="hero-sub">
       Why Ember SPAs fail SEO by default, how to fix with <strong>FastBoot (SSR) or Prember (prerendering)</strong>, dynamic meta tags, canonical URLs, and a free Ember HTML SEO checker.
     </p>
@@ -551,7 +551,6 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   </section>
 
   <!-- SEO CHECKER TOOL -->
-
   <div class="tool-shell">
     <div class="tool-topbar">
       <span class="topbar-label">// Ember HTML SEO Checker</span>
@@ -562,115 +561,104 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       </div>
     </div>
 
+    <div class="mode-row">
+      <button class="mode-btn active" id="modeHtml" onclick="setMode('html',this)">Check HTML Response</button>
+      <button class="mode-btn" id="modeHeaders" onclick="setMode('headers',this)">Check HTTP Headers</button>
+    </div>
 
-<div class="mode-row">
-  <button class="mode-btn active" id="modeHtml" onclick="setMode('html',this)">Check HTML Response</button>
-  <button class="mode-btn" id="modeHeaders" onclick="setMode('headers',this)">Check HTTP Headers</button>
-</div>
-
-<div class="editor-split">
-  <div class="pane-left">
-    <div class="pane-head" id="paneHint">// Paste Ember HTML response (view-source or curl)</div>
-    <textarea class="seo-textarea" id="seoInput" spellcheck="false"></textarea>
-  </div>
-  <div class="pane-right">
-    <div class="pane-head">// SEO findings</div>
-    <div id="resultsPane">
-      <div class="idle-msg">
-        <span style="font-size:28px;opacity:0.1;">&#9670;</span>
-        <span>Paste HTML or headers and click<br>Check Ember SEO</span>
+    <div class="editor-split">
+      <div class="pane-left">
+        <div class="pane-head" id="paneHint">// Paste Ember HTML response (view-source or curl)</div>
+        <textarea class="seo-textarea" id="seoInput" spellcheck="false"></textarea>
+      </div>
+      <div class="pane-right">
+        <div class="pane-head">// SEO findings</div>
+        <div id="resultsPane">
+          <div class="idle-msg">
+            <span style="font-size:28px;opacity:0.1;">&#9670;</span>
+            <span>Paste HTML or headers and click<br>Check Ember SEO</span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="action-bar">
-  <button class="btn-check" id="checkBtn">Check Ember SEO</button>
-  <button class="btn-sm btn-ghost" id="clearBtn2">Reset</button>
-  <span id="statusMsg" style="font-family:var(--mono);font-size:11px;color:var(--text-dim);"></span>
-</div>
-
-
+    <div class="action-bar">
+      <button class="btn-check" id="checkBtn">Check Ember SEO</button>
+      <button class="btn-sm btn-ghost" id="clearBtn2">Reset</button>
+      <span id="statusMsg" style="font-family:var(--mono);font-size:11px;color:var(--text-dim);"></span>
+    </div>
   </div>
 
   <hr class="divider">
 
   <!-- FIX GUIDE -->
-
   <section class="content-section">
     <div class="sec-head">
       <span class="sec-label">The 3 solutions ranked</span>
       <span class="sec-rule"></span>
     </div>
     <div class="dense-block">
-      <p><strong>Solution 1 — Ember FastBoot (SSR) — Recommended</strong><br>
-      FastBoot runs your Ember app in Node.js on every request and serves fully-rendered HTML. Crawlers see complete content. Install: <code>ember install ember-cli-fastboot</code>. For meta tags per route install <code>ember-cli-head</code> and set title/description in each route's <code>headTags</code>. FastBoot requires a Node.js server — deploy on Heroku, Fly.io, Railway, or any Node host. <strong>Verdict:</strong> Best SEO, requires server infrastructure.</p>
-      <p><strong>Solution 2 — Prember (Static Prerendering) — Simpler</strong><br>
-      Prember prerenders your Ember app to static HTML files at build time. No server required — deploy to GitHub Pages, S3, Netlify. Install: <code>ember install prember</code>. Configure the URLs to prerender in <code>ember-cli-build.js</code>. <strong>Limitation:</strong> Content is static — dynamic routes (user profiles, blog posts from API) get the same prerendered shell. Best for sites where the important content is known at build time. <strong>Verdict:</strong> Good SEO for static content, simpler deployment.</p>
-      <p><strong>Solution 3 — ember-prerender / Puppeteer snapshot</strong><br>
+      <p><strong>Solution 1 - Ember FastBoot (SSR) - Recommended</strong><br>
+      FastBoot runs your Ember app in Node.js on every request and serves fully-rendered HTML. Crawlers see complete content. Install: <code>ember install ember-cli-fastboot</code>. For meta tags per route install <code>ember-cli-head</code> and set title/description in each route's <code>headTags</code>. FastBoot requires a Node.js server - deploy on Heroku, Fly.io, Railway, or any Node host. <strong>Verdict:</strong> Best SEO, requires server infrastructure.</p>
+      <p><strong>Solution 2 - Prember (Static Prerendering) - Simpler</strong><br>
+      Prember prerenders your Ember app to static HTML files at build time. No server required - deploy to GitHub Pages, S3, Netlify. Install: <code>ember install prember</code>. Configure the URLs to prerender in <code>ember-cli-build.js</code>. <strong>Limitation:</strong> Content is static - dynamic routes (user profiles, blog posts from API) get the same prerendered shell. Best for sites where the important content is known at build time. <strong>Verdict:</strong> Good SEO for static content, simpler deployment.</p>
+      <p><strong>Solution 3 - ember-prerender / Puppeteer snapshot</strong><br>
       Use a headless browser (Puppeteer/Playwright) to prerender pages and serve snapshots to crawlers. Detect bots via user-agent in a reverse proxy (Nginx/Cloudflare Worker) and serve the prerendered version. This is the most flexible but complex approach. Tools: prerender.io, rendertron, or custom Puppeteer script. <strong>Verdict:</strong> Works for any setup, most complex to maintain.</p>
     </div>
   </section>
 
   <!-- CODE EXAMPLES -->
-
   <section class="content-section">
     <div class="sec-head">
       <span class="sec-label">Implementation code</span>
       <span class="sec-rule"></span>
     </div>
 
-
-<div class="code-block"><span class="cm"># ─── ember-cli-head setup (dynamic meta tags) ───</span>
-
+<div class="code-block"><span class="cm"># --- ember-cli-head setup (dynamic meta tags) ---</span>
 
 <span class="cm"># 1. Install</span>
 <span class="ck">ember</span> install ember-cli-head
 
-<span class="cm"># 2. app/templates/application.hbs — add head-layout component</span>
+<span class="cm"># 2. app/templates/application.hbs -- add head-layout component</span>
 <span class="cs">{{head-layout}}</span>
 <span class="cs">{{outlet}}</span>
 
 <span class="cm"># 3. In each route (e.g., app/routes/post.js)</span>
-<span class="ck">import</span> Route from <span class="cs">’@ember/routing/route’</span>;
-<span class="ck">import</span> { inject as service } from <span class="cs">’@ember/service’</span>;
+<span class="ck">import</span> Route from <span class="cs">'@ember/routing/route'</span>;
+<span class="ck">import</span> { inject as service } from <span class="cs">'@ember/service'</span>;
 
 <span class="ck">export default</span> class PostRoute extends Route {
-@service headData;
+  @service headData;
 
-<span class="ck">async</span> model({ post_id }) {
-<span class="ck">const</span> post = <span class="ck">await</span> this.store.findRecord(<span class="cs">‘post’</span>, post_id);
-<span class="cg">this.headData.title = post.title;</span>
-<span class="cg">this.headData.description = post.excerpt;</span>
-<span class="cg">this.headData.canonical = `https://yoursite.com/posts/${post_id}`;</span>
-return post;
-}
+  <span class="ck">async</span> model({ post_id }) {
+    <span class="ck">const</span> post = <span class="ck">await</span> this.store.findRecord(<span class="cs">'post'</span>, post_id);
+    <span class="cg">this.headData.title = post.title;</span>
+    <span class="cg">this.headData.description = post.excerpt;</span>
+    <span class="cg">this.headData.canonical = `https://yoursite.com/posts/${post_id}`;</span>
+    return post;
+  }
 }</div>
 
+<div class="code-block"><span class="cm"># --- Prember configuration (ember-cli-build.js) ---</span>
 
-<div class="code-block"><span class="cm"># ─── Prember configuration (ember-cli-build.js) ───</span>
-
-
-<span class="ck">const</span> EmberApp = require(<span class="cs">‘ember-cli/lib/broccoli/ember-app’</span>);
+<span class="ck">const</span> EmberApp = require(<span class="cs">'ember-cli/lib/broccoli/ember-app'</span>);
 
 module.exports = function(defaults) {
-<span class="ck">const</span> app = new EmberApp(defaults, {
-prember: {
-urls: [
-<span class="cs">’/’</span>,
-<span class="cs">’/about’</span>,
-<span class="cs">’/blog’</span>,
-<span class="cs">’/blog/post-1’</span>,
-<span class="cm">// Add all routes you want prerendered</span>
-]
-}
-});
-return app.toTree();
+  <span class="ck">const</span> app = new EmberApp(defaults, {
+    prember: {
+      urls: [
+        <span class="cs">'/'</span>,
+        <span class="cs">'/about'</span>,
+        <span class="cs">'/blog'</span>,
+        <span class="cs">'/blog/post-1'</span>,
+        <span class="cm">// Add all routes you want prerendered</span>
+      ]
+    }
+  });
+  return app.toTree();
 };</div>
 
-
-<div class="code-block"><span class="cm"># ─── Ember FastBoot deploy (Fly.io Dockerfile) ───</span>
-
+<div class="code-block"><span class="cm"># --- Ember FastBoot deploy (Fly.io Dockerfile) ---</span>
 
 <span class="cm">FROM</span> node:20-alpine
 WORKDIR /app
@@ -678,29 +666,28 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-<span class="cg">CMD [“npx”, “fastboot”, “–serve-assets”, “–port”, “3000”]</span>
+<span class="cg">CMD ["npx", "fastboot", "--serve-assets", "--port", "3000"]</span>
 
-<span class="cm"># ─── Nginx: serve bot traffic to prerender service ───</span>
+<span class="cm"># --- Nginx: serve bot traffic to prerender service ---</span>
 location / {
-if ($http_user_agent ~* <span class="cs">“Googlebot|bingbot|Slurp|DuckDuckBot|facebookexternalhit”</span>) {
-proxy_pass http://prerender_service;
-}
-try_files $uri $uri/ /index.html;
+  if ($http_user_agent ~* <span class="cs">"Googlebot|bingbot|Slurp|DuckDuckBot|facebookexternalhit"</span>) {
+    proxy_pass http://prerender_service;
+  }
+  try_files $uri $uri/ /index.html;
 }</div>
 
   </section>
 
   <!-- FAQ -->
-
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">FAQ — Ember.js SEO debugging</span>
+      <span class="sec-label">FAQ - Ember.js SEO debugging</span>
       <span class="sec-rule"></span>
     </div>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Why does Ember.js have SEO issues by default?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Ember is a client-side SPA — the server sends a nearly empty HTML shell, and JavaScript renders content in the browser. Crawlers receive <code>&lt;body&gt;&lt;div id="ember-app"&gt;&lt;/div&gt;&lt;/body&gt;</code> with no readable content, no title, no description. Googlebot can execute JavaScript in limited cases, but rendering is unreliable and delayed. Fix with FastBoot (SSR), Prember (prerendering), or a prerender proxy.</div>
+        <div class="faq-a">Ember is a client-side SPA - the server sends a nearly empty HTML shell, and JavaScript renders content in the browser. Crawlers receive <code>&lt;body&gt;&lt;div id="ember-app"&gt;&lt;/div&gt;&lt;/body&gt;</code> with no readable content, no title, no description. Googlebot can execute JavaScript in limited cases, but rendering is unreliable and delayed. Fix with FastBoot (SSR), Prember (prerendering), or a prerender proxy.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I add dynamic meta tags in Ember.js?<span class="faq-arrow">&#9660;</span></button>
@@ -708,11 +695,11 @@ try_files $uri $uri/ /index.html;
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Does Googlebot crawl Ember.js apps?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Sometimes, but unreliably. Googlebot can execute JavaScript and render SPAs, but: (1) Rendering is delayed — content may not be indexed for weeks. (2) JavaScript errors silently prevent rendering. (3) Rendering budget limits mean not every page gets rendered. (4) Other crawlers (Bing, social media bots) typically don't execute JavaScript at all. Never rely on Googlebot's JS execution for critical SEO — use FastBoot or prerendering for reliable indexing.</div>
+        <div class="faq-a">Sometimes, but unreliably. Googlebot can execute JavaScript and render SPAs, but: (1) Rendering is delayed - content may not be indexed for weeks. (2) JavaScript errors silently prevent rendering. (3) Rendering budget limits mean not every page gets rendered. (4) Other crawlers (Bing, social media bots) typically don't execute JavaScript at all. Never rely on Googlebot's JS execution for critical SEO - use FastBoot or prerendering for reliable indexing.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I debug SEO issues in Ember.js?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Step 1: <code>curl -A "Googlebot" https://yoursite.com/page</code> — check what crawlers actually receive. Step 2: Google Search Console → URL Inspection → "Test Live URL" → "View Tested Page" shows what Googlebot renders. Step 3: Check page source (Ctrl+U) — if the body is empty, you have an SPA SEO problem. Step 4: Use this tool — paste your HTML response to check for missing title, meta description, canonical, OG tags. Step 5: If using FastBoot, verify the Node server is running and not returning errors.</div>
+        <div class="faq-a">Step 1: <code>curl -A "Googlebot" https://yoursite.com/page</code> - check what crawlers actually receive. Step 2: Google Search Console - URL Inspection - "Test Live URL" - "View Tested Page" shows what Googlebot renders. Step 3: Check page source (Ctrl+U) - if the body is empty, you have an SPA SEO problem. Step 4: Use this tool - paste your HTML response to check for missing title, meta description, canonical, OG tags. Step 5: If using FastBoot, verify the Node server is running and not returning errors.</div>
       </div>
     </div>
   </section>
@@ -759,7 +746,7 @@ var currentMode = 'html';
 var HTML_RULES = [
   {
     level: 'error',
-    title: 'Empty Ember app shell — no SSR detected',
+    title: 'Empty Ember app shell - no SSR detected',
     check: function(src) {
       var hasEmberDiv = /id="ember\d+"|class="ember-view"|<div id="ember-app"/i.test(src);
       var hasNoContent = src.replace(/<[^>]+>/g, '').trim().length < 80;
@@ -835,7 +822,7 @@ var HTML_RULES = [
     title: 'Ember FastBoot detected',
     check: function(src) {
       if (/fastboot|ember-fastboot|x-fastboot/i.test(src)) {
-        return 'FastBoot rendering signature detected. Server-side rendering is active — crawlers should receive full HTML. Verify content is populated and meta tags are set.';
+        return 'FastBoot rendering signature detected. Server-side rendering is active - crawlers should receive full HTML. Verify content is populated and meta tags are set.';
       }
       return null;
     }
@@ -880,7 +867,7 @@ var HEADER_RULES = [
     title: 'Gzip / Brotli compression',
     check: function(src) {
       if (!/content-encoding:\s*(gzip|br)/i.test(src)) {
-        return 'No compression detected. Enable gzip or Brotli in Nginx/Node to reduce HTML transfer size — improves Core Web Vitals and crawler efficiency.';
+        return 'No compression detected. Enable gzip or Brotli in Nginx/Node to reduce HTML transfer size - improves Core Web Vitals and crawler efficiency.';
       }
       return null;
     }
@@ -923,10 +910,10 @@ function runCheck() {
   var warnings = findings.filter(function(f) { return f.level === 'warning'; }).length;
 
   var grade, gradeColor;
-  if (errors >= 3) { grade = 'F'; gradeColor = 'var(--emb)'; }
-  else if (errors > 0) { grade = 'D'; gradeColor = 'var(--orange)'; }
-  else if (warnings > 0) { grade = 'C'; gradeColor = 'var(--yellow)'; }
-  else { grade = 'A'; gradeColor = 'var(--green)'; }
+  if (errors >= 3)    { grade = 'F'; gradeColor = 'var(--emb)'; }
+  else if (errors > 0){ grade = 'D'; gradeColor = 'var(--orange)'; }
+  else if (warnings > 0){ grade = 'C'; gradeColor = 'var(--yellow)'; }
+  else                { grade = 'A'; gradeColor = 'var(--green)'; }
 
   if (findings.length === 0) {
     findings.push({ level: 'pass', title: 'No SEO issues detected', body: 'Page passes Ember SEO checks. Verify in Google Search Console URL Inspection for live crawler view.' });
@@ -945,7 +932,7 @@ function runCheck() {
   var ms = Object.assign(el('strong'), { textContent: 'Grade ' + grade + ': ' + label });
   ms.style.color = gradeColor;
   meta.appendChild(ms);
-  meta.appendChild(Object.assign(el('span'), { textContent: errors + ' error(s) · ' + warnings + ' warning(s)' }));
+  meta.appendChild(Object.assign(el('span'), { textContent: errors + ' error(s) - ' + warnings + ' warning(s)' }));
   banner.appendChild(gradeEl); banner.appendChild(meta);
   pane.appendChild(banner);
 
@@ -977,77 +964,76 @@ var SPA_SAMPLE = [
   '</head>',
   '<body>',
   '  <div id="ember-app" class="ember-view"></div>',
-  '  <script src="/assets/vendor.js"></script>',
-
-’  <script src="/assets/app.js"></script>’,
-‘</body>’,
-‘</html>’
-].join(’\n’);
+  '  <script src="/assets/vendor.js"><\/script>',
+  '  <script src="/assets/app.js"><\/script>',
+  '</body>',
+  '</html>'
+].join('\n');
 
 var FB_SAMPLE = [
-‘<!DOCTYPE html>’,
-‘<html>’,
-‘<head>’,
-’  <meta charset="UTF-8">’,
-’  <title>Blog Post Title - My Ember App</title>’,
-’  <meta name="description" content="This is a detailed meta description for the blog post about Ember.js and FastBoot SSR.">’,
-’  <link rel="canonical" href="https://myapp.com/blog/post-1">’,
-’  <meta property="og:title" content="Blog Post Title">’,
-’  <meta property="og:description" content="Blog post description for social sharing.">’,
-’  <script type="application/ld+json">{”@context”:“https://schema.org”,”@type”:“Article”,“headline”:“Blog Post Title”}</script>’,
-‘</head>’,
-‘<body class="ember-application">’,
-’  <div id="ember-app">’,
-’    <main>’,
-’      <h1>Blog Post Title</h1>’,
-’      <p>This content was server-rendered by Ember FastBoot.</p>’,
-’    </main>’,
-’  </div>’,
-‘</body>’,
-‘</html>’
-].join(’\n’);
+  '<!DOCTYPE html>',
+  '<html>',
+  '<head>',
+  '  <meta charset="UTF-8">',
+  '  <title>Blog Post Title - My Ember App</title>',
+  '  <meta name="description" content="This is a detailed meta description for the blog post about Ember.js and FastBoot SSR.">',
+  '  <link rel="canonical" href="https://myapp.com/blog/post-1">',
+  '  <meta property="og:title" content="Blog Post Title">',
+  '  <meta property="og:description" content="Blog post description for social sharing.">',
+  '  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Blog Post Title"}<\/script>',
+  '</head>',
+  '<body class="ember-application">',
+  '  <div id="ember-app">',
+  '    <main>',
+  '      <h1>Blog Post Title</h1>',
+  '      <p>This content was server-rendered by Ember FastBoot.</p>',
+  '    </main>',
+  '  </div>',
+  '</body>',
+  '</html>'
+].join('\n');
 
 function setMode(mode, btn) {
-currentMode = mode;
-document.querySelectorAll(’.mode-btn’).forEach(function(b) { b.classList.remove(‘active’); });
-btn.classList.add(‘active’);
-var hint = document.getElementById(‘paneHint’);
-if (mode === ‘html’) {
-hint.textContent = ‘// Paste Ember HTML response (view-source or curl)’;
-} else {
-hint.textContent = ‘// Paste HTTP response headers’;
-}
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var hint = document.getElementById('paneHint');
+  if (mode === 'html') {
+    hint.textContent = '// Paste Ember HTML response (view-source or curl)';
+  } else {
+    hint.textContent = '// Paste HTTP response headers';
+  }
 }
 
 function clearAll() {
-document.getElementById(‘seoInput’).value = ‘’;
-document.getElementById(‘statusMsg’).textContent = ‘’;
-document.getElementById(‘resultsPane’).innerHTML = ‘’;
-var idle = el(‘div’, ‘idle-msg’);
-var icon = Object.assign(el(‘span’), { textContent: ‘\u25c7’ });
-icon.style.cssText = ‘font-size:28px;opacity:0.1;’;
-var hint = Object.assign(el(‘span’), { textContent: ‘Paste HTML or headers and click\nCheck Ember SEO’ });
-idle.appendChild(icon); idle.appendChild(hint);
-document.getElementById(‘resultsPane’).appendChild(idle);
+  document.getElementById('seoInput').value = '';
+  document.getElementById('statusMsg').textContent = '';
+  document.getElementById('resultsPane').innerHTML = '';
+  var idle = el('div', 'idle-msg');
+  var icon = Object.assign(el('span'), { textContent: '\u25c7' });
+  icon.style.cssText = 'font-size:28px;opacity:0.1;';
+  var hint = Object.assign(el('span'), { textContent: 'Paste HTML or headers and click\nCheck Ember SEO' });
+  idle.appendChild(icon); idle.appendChild(hint);
+  document.getElementById('resultsPane').appendChild(idle);
 }
 
 function toggleFaq(btn) {
-btn.parentElement.classList.toggle(‘open’);
+  btn.parentElement.classList.toggle('open');
 }
 
-document.addEventListener(‘DOMContentLoaded’, function() {
-document.getElementById(‘seoInput’).placeholder = ‘Paste your Ember app HTML source here…\n(use curl https://yoursite.com or view page source)’;
-document.getElementById(‘checkBtn’).addEventListener(‘click’, runCheck);
-document.getElementById(‘sampleSPABtn’).addEventListener(‘click’, function() {
-document.getElementById(‘seoInput’).value = SPA_SAMPLE;
-runCheck();
-});
-document.getElementById(‘sampleFBBtn’).addEventListener(‘click’, function() {
-document.getElementById(‘seoInput’).value = FB_SAMPLE;
-runCheck();
-});
-document.getElementById(‘clearBtn’).addEventListener(‘click’, clearAll);
-document.getElementById(‘clearBtn2’).addEventListener(‘click’, clearAll);
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('seoInput').placeholder = 'Paste your Ember app HTML source here...\n(use curl https://yoursite.com or view page source)';
+  document.getElementById('checkBtn').addEventListener('click', runCheck);
+  document.getElementById('sampleSPABtn').addEventListener('click', function() {
+    document.getElementById('seoInput').value = SPA_SAMPLE;
+    runCheck();
+  });
+  document.getElementById('sampleFBBtn').addEventListener('click', function() {
+    document.getElementById('seoInput').value = FB_SAMPLE;
+    runCheck();
+  });
+  document.getElementById('clearBtn').addEventListener('click', clearAll);
+  document.getElementById('clearBtn2').addEventListener('click', clearAll);
 });
 </script>
 
